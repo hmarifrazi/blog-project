@@ -14,7 +14,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        // $data['categories'] = Category::all();
+        // return view('backend.category.index',$data);
+
+        $categories = Category::all();
+        // return view('backend.category.index',['categories'=>$categories]);
+        return view('backend.category.index',compact('categories'));
     }
 
     /**
@@ -35,7 +40,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $data['name'] = $request->name;
+        // $data['description'] = $request->description;
+        Category::create([
+            "name" => $request->name,
+            "description" => $request->description
+        ]);
+
+        return redirect()->route('categories.index');
     }
 
     /**

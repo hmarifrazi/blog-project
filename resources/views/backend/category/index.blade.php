@@ -11,22 +11,23 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h2>Add Category</h2>
-          <form action="{{ route('categories.store') }}" method="post">
-            @csrf
-            <div class="form-group">
-              <label for="name">Category Name</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Category Name">
-            </div>
-              <div class="form-group">
-                <label for="name">Category Description</label>
-                <input type="text" class="form-control" id="name" name="description" placeholder="Category Description">
-              </div>
-              <div class="form-group">
-                  <br>
-                <input type="submit" class="btn btn-success" value="Submit" >
-              </div>
-          </form>
+          <h2 class="text-center">Add Category</h2>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Category Name</th>
+                  <th>Category Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($categories as $category)  
+                <tr>
+                  <td>{{ $category->name }}</td>
+                  <td>{{ $category->description }}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
         </div>
       </div>
     </div>
