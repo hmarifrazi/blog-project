@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFormRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -38,10 +39,20 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFormRequest $request)
     {
         // $data['name'] = $request->name;
         // $data['description'] = $request->description;
+        $request->validated();
+        // $request->validate([
+        //     'name' => 'required|max:255',
+        //     'description' => 'required',
+        // ],[
+        //     'name.required' => 'name field is must be filled out',
+        //     'description.required' => 'description field is must be required',
+        // ]);
+        
+       
         Category::create([
             "name" => $request->name,
             "description" => $request->description
@@ -58,7 +69,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+    //    $data['category'] = $category;
+    //    return view('backend.category.show',['category' => $category]);
+       return view('backend.category.show',compact('category'));
     }
 
     /**
@@ -69,7 +82,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        //    $data['category'] = $category;
+    //    return view('backend.category.edit',['category' => $category]);
+       return view('backend.category.edit',compact('category'));
     }
 
     /**
@@ -79,9 +94,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(StoreFormRequest $request, Category $category)
     {
-        //
+        // $data['name'] = $request->name;
+        // $data['description'] = $request->description;
+        // $category->update($data);
+        // Category::where('id',$category->id)->update([
+        //     "name" => $request->name,
+        //     "description" => $request->description
+        // ]);
+        $request->validated();
+             $category->update($request->all());
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -92,6 +116,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index');
     }
 }
