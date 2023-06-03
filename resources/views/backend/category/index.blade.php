@@ -3,6 +3,16 @@
 
 @section('content')
 <div class="col-md-6">
+  {{-- @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif --}}
+  @if (Session::has('success'))
+    <div class="alert alert-success" id="alert">
+        {{ Session::get('success') }}
+    </div>
+@endif
   <h2 class="text-center"><a class="btn btn-info" href="{{ route('categories.create') }}">Add Category</a></h2>
     <table class="table table-bordered">
       <thead>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFormRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
@@ -57,8 +58,9 @@ class CategoryController extends Controller
             "name" => $request->name,
             "description" => $request->description
         ]);
-
-        return redirect()->route('categories.index');
+        // Session::flash('success', 'Category added successfully!');
+        // session()->flash('success', 'Category added successfully!');
+        return redirect()->route('categories.index')->with('success', 'Category added successfully!');
     }
 
     /**
